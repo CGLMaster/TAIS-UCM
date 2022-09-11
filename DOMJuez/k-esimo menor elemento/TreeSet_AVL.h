@@ -159,7 +159,7 @@ protected:
       } else if (menor(e, a->elem)) {
          crece = inserta(e, a->iz);
          if (crece) {
-             a->tam_i++;
+             a->tam_i++; // se aumenta el tamaño del arbol
              reequilibraDer(a);
          }
       } else if (menor(a->elem, e)) {
@@ -178,7 +178,7 @@ protected:
    void rotaDer(Link & r2) {
       Link r1 = r2->iz;
       r2->iz = r1->dr;
-      r2->tam_i -= r1->tam_i;
+      r2->tam_i -= r1->tam_i; //al rotar a la derecha se tiene que restar el tamaño que había antes en el otro lado
       r1->dr = r2;
       r2->altura = std::max(altura(r2->iz), altura(r2->dr)) + 1;
       r1->altura = std::max(altura(r1->iz), altura(r1->dr)) + 1;
@@ -188,7 +188,7 @@ protected:
    void rotaIzq(Link & r1) {
       Link r2 = r1->dr;
       r1->dr = r2->iz;
-      r2->tam_i += r1->tam_i;
+      r2->tam_i += r1->tam_i; //al rotar a la izquierda se tiene que sumar el tamaño que había antes en el otro lado
       r2->iz = r1;
       r1->altura = std::max(altura(r1->iz), altura(r1->dr)) + 1;
       r2->altura = std::max(altura(r2->iz), altura(r2->dr)) + 1;
@@ -242,7 +242,7 @@ protected:
       if (a != nullptr) {
          if (menor(e, a->elem)) {
             decrece = borra(e, a->iz);
-            a->tam_i--;
+            a->tam_i--; //se reduce el tamaño del arbol
             if (decrece) reequilibraIzq(a);
          }
          else if (menor(a->elem, e)) {
