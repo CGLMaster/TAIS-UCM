@@ -26,9 +26,7 @@ using namespace std;
     buscar(pos,a) : esta función se encarga de realizar la búsqueda de la posición "pos", desde el nodo "a", recorriendo el lado del nodo, en función de "pos" y el tamaño previamente
                     introducido "tam_i", lo busca recursivamente hasta que lo encuentra devolviendo dicho nodo, si no lo encuentra, devuelve un nodo vacío.
 
-    El coste de la función en el peor de los casos es O(N), donde N es la altura del árbol, ya que no recorre todos los nodos, pero en el caso de que la posición solicitada, supere
-    la cantidad de nodos, tendrá que recorrer todo el lateral, recorriendo así toda la altura del árbol.
-
+    El coste de la función en el peor de los casos es O(log(N) * (M+N)), donde N es el número de nodos del árbol, y M es el número de elementos a buscar.
  @ </answer> */
 
 
@@ -42,17 +40,17 @@ bool resuelveCaso() {
     cin >> num;
     if (num == 0) return false;
     Set<int> arbol;
-    for (int i = 0; i < num; i++) {
+    for (int i = 0; i < num; i++) { // O(N) 
         int n;
         cin >> n;
-        arbol.insert(n);
+        arbol.insert(n); // O(log(N))
     }
     int M;
     cin >> M;
-    for (int i = 0; i < M; i++) {
+    for (int i = 0; i < M; i++) { // O(M)
         int pos;
         cin >> pos;
-        int a = arbol.k_esimo(pos);
+        int a = arbol.k_esimo(pos); // O(log(N))
         if (a != -1) cout << a << "\n";
         else cout << "??\n";
     }
