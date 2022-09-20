@@ -25,13 +25,14 @@ using namespace std;
  //@ <answer>
 
 typedef struct {
+    bool repetir;
     int ini;
     int fin;
-    int repetir;
+    int intervalo;
 }Tareas;
 
 bool operator<(Tareas const& a, Tareas const& b) {
-    return b.ini < a.ini || (b.ini == a.ini) && (b.fin < a.fin);
+    return b.ini < a.ini;
 }
 
 bool hayConflictos(priority_queue<Tareas> lista, const int& N, const int& M, const int& T) {
@@ -40,13 +41,13 @@ bool hayConflictos(priority_queue<Tareas> lista, const int& N, const int& M, con
     while (!lista.empty() && !conflicto && lista.top().ini < T) {
         auto t = lista.top();
         lista.pop();
-        if (t.fin > lista.top().ini && T > lista.top().ini) conflicto = true;
-        if (t.repetir > 0) {
-            t.ini += t.repetir;
-            t.fin += t.repetir;
+        conflicto = t.ini < tActual;
+        tActual = t.fin;
+        if (t.repetir) {
+            t.ini += t.intervalo;
+            t.fin += t.intervalo;
             lista.push(t);
         }
-        tActual = t.fin;
     }
     return conflicto;
 }
@@ -60,12 +61,14 @@ bool resuelveCaso() {
     for (int i = 0; i < N; i++) {
         Tareas t;
         cin >> t.ini >> t.fin;
-        t.repetir = 0;
+        t.intervalo = 0;
+        t.repetir = false;
         listaTareas.push(t);
     }
     for (int i = 0; i < M; i++) {
         Tareas t;
-        cin >> t.ini >> t.fin >> t.repetir;
+        cin >> t.ini >> t.fin >> t.intervalo;
+        t.repetir = true;
         listaTareas.push(t);
     }
     bool conflictos = hayConflictos(listaTareas, N, M, T);
