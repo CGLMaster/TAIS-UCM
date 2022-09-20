@@ -23,8 +23,8 @@ using namespace std;
     En caso de que sea repetitico, pues aumentas sus tiempos su respectivo intervalo, y lo vuelves a introducir a la cola.
 
     Desglosando los costes de todo el código obtenemos O(log(N)*N + log(N)*M + log(N)*K), donde N es el número de tareas que se encuentran en la lista, M el número de tareas unicas y
-    K el número de tareas periodicas.
-    Dicho coste se puede reducir a O(log(N)*(N+M+K)), el cual si nos damos cuenta N = K + M, ya que sumando ambos tipos de tareas, obtenemos el numero de total de tareas de la lista.
+    K el número de tareas periódicas.
+    Dicho coste se puede reducir a O(log(N)*(N+M+K)), el cual si nos damos cuenta N = K + M, ya que sumando ambos tipos de tareas, obtenemos el número de total de tareas de la lista.
     
     Por lo que el coste de la función en el peor de los casos es de O(log(N)*N), donde N es el número de tareas que se encuentran en la lista.
 
