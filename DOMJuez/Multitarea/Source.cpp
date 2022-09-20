@@ -12,14 +12,9 @@ using namespace std;
 
 /*@ <answer>
 
-    A la hora de realizar el ejercicio he pensado en introducir en la cola un struct, llamado tPaciente, el cual va a contener
-    el nombre del paciente, nivel de gravedad y la hora de entrada.
-    A la hora de introducir los datos he hecho como en ejercicios anteriores, es decir push() del tPaciente en la cola prioritaria
-    y luego para leerlo top() y pop() del tPaciente más prioritario.
-    Para saber cuál es más prioritario me baso en que tienen que ir más prioritario el que más gravedad tiene y después en caso de
-    que tengan las misma gravedad, lo compruebo con el momento de entrada del paciente.
-    
-    El coste de la función en el caso peor es O(N*log(N)), donde N es el número de pacientes en la cola.
+ Escribe aquí un comentario general sobre la solución, explicando cómo
+ se resuelve el problema y cuál es el coste de la solución, en función
+ del tamaño del problema.
 
  @ </answer> */
 
@@ -30,36 +25,52 @@ using namespace std;
  //@ <answer>
 
 typedef struct {
-    string nombre;
-    int gravedad;
-    int entrada;
-}tPaciente;
+    int ini;
+    int fin;
+    int repetir;
+}Tareas;
 
-bool operator<(tPaciente const& a, tPaciente const& b) {
-    return a.gravedad < b.gravedad || (a.gravedad == b.gravedad && b.entrada < a.entrada);
+bool operator<(Tareas const& a, Tareas const& b) {
+    return b.ini < a.ini || (b.ini == a.ini) && (b.fin < a.fin);
+}
+
+bool hayConflictos(priority_queue<Tareas> lista, const int& N, const int& M, const int& T) {
+    bool conflicto = false;
+    int tActual = 0;
+    while (!lista.empty() && !conflicto && lista.top().ini < T) {
+        auto t = lista.top();
+        lista.pop();
+        if (t.fin > lista.top().ini && T > lista.top().ini) conflicto = true;
+        if (t.repetir > 0) {
+            t.ini += t.repetir;
+            t.fin += t.repetir;
+            lista.push(t);
+        }
+        tActual = t.fin;
+    }
+    return conflicto;
 }
 
 bool resuelveCaso() {
-    int n;
-    cin >> n;
-    if (n == 0) return false;
-    priority_queue<tPaciente> pEsperando;
-    string letra;
-    for (int i = 0; i < n; i++) { // O(N) 
-        cin >> letra;
-        if (letra == "A") { // O(log(N))
-            cout << pEsperando.top().nombre << "\n";
-            pEsperando.pop();
 
-        }
-        else { // O(log(N))
-            tPaciente p;
-            cin >> p.nombre >> p.gravedad;
-            p.entrada = i;
-            pEsperando.push(p);
-        }
+    int N, M, T;
+    cin >> N >> M >> T;
+    if (!cin) return false;
+    priority_queue<Tareas> listaTareas;
+    for (int i = 0; i < N; i++) {
+        Tareas t;
+        cin >> t.ini >> t.fin;
+        t.repetir = 0;
+        listaTareas.push(t);
     }
-    cout << "---\n";
+    for (int i = 0; i < M; i++) {
+        Tareas t;
+        cin >> t.ini >> t.fin >> t.repetir;
+        listaTareas.push(t);
+    }
+    bool conflictos = hayConflictos(listaTareas, N, M, T);
+    if (conflictos) cout << "SI\n";
+    else cout << "NO\n";
     return true;
 }
 
