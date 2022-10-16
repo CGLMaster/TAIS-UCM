@@ -13,7 +13,7 @@ using namespace std;
 
 /*@ <answer>
 
-    El coste de la función en el peor de los casos es O(L + A), donde L es el número de instrucciones y A el número de aristas que unen las instrucciones.
+    El coste de la función en el peor de los casos es O(L), donde L es el número de instrucciones, se queda asi porque el número de aristas va a ser o L o 2L en el peor de los casos.
 
  @ </answer> */
 
