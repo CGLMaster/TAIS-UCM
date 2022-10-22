@@ -8,16 +8,20 @@
 #include <iostream>
 #include <fstream>
 #include <queue>
+#include <limits>
 using namespace std;
 
 #include "GrafoValorado.h"  // propios o los de las estructuras de datos de clase
-#include "ConjuntosDisjuntos.h"
+#include "IndexPQ.h"
 
 /*@ <answer>
 
- Escribe aquí un comentario general sobre la solución, explicando cómo
- se resuelve el problema y cuál es el coste de la solución, en función
- del tamaño del problema.
+ A la hora de plantear el ejercicio, me he dado cuenta que lo estaba planteando con un digrafo valorado y no con un grafo valorado, lo cual suponía que algunos casos me saliesen mal.
+ Una vez he caido en ello, el resto lo he mantenido de la misma forma, es decir en este caso, simplemente había que hacer un algoritmo de Dijkstra el cual tendremos que modificar su
+ funcion relajar, de tal forma que vas a guardar el contador de caminos que lleve su vértice anterior si su valor es superior, y si es igual vas a aumentar su contador de caminos con
+ el contador de caminos del vértice anterior.
+
+ El coste de la función en el peor de los casos es O(A * log(V)), siendo A el número de aristas y V el número de vértices del grafo
 
  @ </answer> */
 
@@ -29,33 +33,39 @@ using namespace std;
 
 class Camino {
 public:
-    Camino(GrafoValorado<int> const& g) : cont(0) {
-        dfs(g);
+    Camino(GrafoValorado<int> const& d) : dist(d.V(), INF), pq(d.V()), caminos(d.V()) {
+        Dijksta(d);
     }
 
-    int caminos() const { return cont; }
+    int numCaminos() { return caminos[caminos.size() - 1]; }
 
 private:
-    vector<Arista<int>> ARM;
-    int cont;
-    int coste;
+    const int INF = std::numeric_limits<int>::max();
+    vector<int> dist;
+    IndexPQ<int> pq;
+    vector<int> caminos;
 
-    void dfs(GrafoValorado<int> const& g) {
-        ConjuntosDisjuntos CD(g.V());
-        auto aristas = g.aristas();
-        priority_queue<Arista<int>, vector<Arista<int>>, greater<Arista<int>>> cola(aristas.begin(), aristas.end());
-        while (!cola.empty()) {                         
-            auto a = cola.top();
-            cola.pop();                                 
-            int v = a.uno(), w = a.otro(v);
-            if (!CD.unidos(v, w)) {
-                CD.unir(v, w);
-                ARM.push_back(a);
-                coste += a.valor();
-                if (ARM.size() == g.V() - 1) break;
-            }
+    void Dijksta(GrafoValorado<int> const& d) {
+        dist[0] = 0;
+        caminos[0] = 1;
+        pq.push(0, 0);
+        while (!pq.empty()) {
+            int v = pq.top().elem; pq.pop();
+            for (auto a : d.ady(v))
+                relajar(a, v);
         }
     }
+
+    void relajar(Arista<int> a, int v) {
+        int w = a.otro(v);
+        if (dist[w] > dist[v] + a.valor()) {
+            dist[w] = dist[v] + a.valor();
+            caminos[w] = caminos[v];
+            pq.update(w, dist[w]);
+        }
+        else if (dist[w] == dist[v] + a.valor()) caminos[w] += caminos[v];
+    }
+
 };
 
 bool resuelveCaso() {
@@ -63,16 +73,15 @@ bool resuelveCaso() {
     int N, C;
     cin >> N >> C;
     if (!cin) return false;
-    GrafoValorado<int> g(N);
-    int ini, fin, valor;
+    GrafoValorado<int> d(N);
+    int a, b, valor;
     for (int i = 0; i < C; i++) {
-        cin >> ini >> fin >> valor;
-        g.ponArista({ ini - 1, fin - 1, valor });
+        cin >> a >> b >> valor;
+        d.ponArista({ a - 1,b - 1,valor });
     }
+    Camino c(d);
 
-    Camino c(g);
-
-    cout << c.caminos() << "\n";
+    cout << c.numCaminos() << "\n";
 
     return true;
 }
