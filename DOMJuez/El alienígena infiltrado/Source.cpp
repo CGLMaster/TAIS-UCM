@@ -1,7 +1,7 @@
-
+ï»¿
 /*@ <answer>
  *
- * Nombre y Apellidos: Carlos Gómez López
+ * Nombre y Apellidos: Carlos GÃ³mez LÃ³pez
  *
  *@ </answer> */
 
@@ -13,13 +13,13 @@ using namespace std;
 
 /*@ <answer>
 
-    El coste de la función en el peor de los casos es O(N*log(N)), donde N es el número de edificios, a los cuales se van a hacer pasadizos subterráneos.
+    El coste de la funcione en el peor de los casos es O(N * log(N)), donde N es el nÃºmero de intervalos a comprobar. Este coste se debe a la funcion sort().
 
  @ </answer> */
 
 
  // ================================================================
- // Escribe el código completo de tu solución aquí debajo
+ // Escribe el codigo completo de tu solucion aqui debajo
  // ================================================================
  //@ <answer>
 
@@ -29,23 +29,25 @@ struct Exposicion {
 };
 
 bool operator<(Exposicion const& a, Exposicion const& b) {
-    return a.F < b.F || (a.F == b.F && a.C < b.C);
+    return a.C < b.C;
 }
 
-int cuantoCubre(vector<Exposicion> const& intervalos, Exposicion const& exp) {
+int cuantoCubre(vector<Exposicion> const& intervalos, Exposicion const& exp, bool& imposible) { // O(N)
     int cont = 0;
-    int fin = intervalos[0].F;
-    int i = 1;
-    while (i < intervalos.size() && fin < exp.F) {
-        if (intervalos[i].F >= fin && intervalos[i].C <= fin) {
+    int ini = exp.C;
+    int i = 0;
+    while (!imposible && ini < exp.F) {
+        int Cubierto = ini;
+        while (i < intervalos.size() && intervalos[i].C <= ini) {
+            if (intervalos[i].F > Cubierto)
+                Cubierto = intervalos[i].F;
+            i++;
+        }
+        if (Cubierto > ini) {
             cont++;
-            fin = intervalos[i].F;
+            ini = Cubierto;
         }
-        else {
-            cont = 0;
-            break;
-        }
-        i++;
+        else imposible = true;
     }
     return cont;
 }
@@ -63,19 +65,20 @@ bool resuelveCaso() {
         cin >> C >> F;
         intervalos[i] = { C,F };
     }
-    
-    sort(intervalos.begin(), intervalos.end());
 
-    int s = cuantoCubre(intervalos, expuesto);
+    sort(intervalos.begin(), intervalos.end()); // O(N*log(N))
 
-    if (s != 0) cout << s << "\n";
+    bool s = false;
+    int num = cuantoCubre(intervalos, expuesto, s);
+
+    if (!s) cout << num << "\n";
     else cout << "Imposible\n";
 
     return true;
 }
 
 //@ </answer>
-//  Lo que se escriba dejado de esta línea ya no forma parte de la solución.
+//  Lo que se escriba dejado de esta linea ya no forma parte de la solucion.
 
 int main() {
     // ajustes para que cin extraiga directamente de un fichero
