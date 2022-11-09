@@ -25,18 +25,16 @@ using namespace std;
  //@ <answer>
 
 int comprarEquipaciones(vector<int> const& jugadores, vector<int> const& equipaciones) {
-    int cont = 0;
-    int i = 0;
-    while (i < jugadores.size() && i < equipaciones.size()) {
-        if (jugadores[i] != equipaciones[i]) {
-            if (jugadores[i] + 1 != equipaciones[i]) {
-                cont++;
-            }
+    int cont = jugadores.size();
+    int i = 0, j = 0;
+    while (i < jugadores.size() && j < equipaciones.size()) {
+        if (jugadores[i] == equipaciones[j] || jugadores[i] == equipaciones[j] - 1) {
+            cont--;
+            i++;
+            j++;
         }
-        i++;
-    }
-    if (i < jugadores.size()) {
-        cont += jugadores.size() - i;
+        else if (jugadores[i] < equipaciones[j]) i++;
+        else j++;
     }
     return cont;
 }
