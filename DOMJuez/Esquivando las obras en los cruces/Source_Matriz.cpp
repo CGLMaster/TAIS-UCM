@@ -21,8 +21,8 @@ using namespace std;
                         { evitandoObras (i,j) = 0                                            si ciudad[i][j] = 'X'
                         { evitandoObras (i,j) = evitandoObras(i - 1,j) + evitandoObras(i,j-1)    si ciudad[i][j] = '.'
 
-    El coste de la función en tiempo en el peor de los casos es O(N^2), donde N son las dimensiones de la ciudad.
-    El coste de la función en espacio en el peor de los casos es O(N^2).
+    El coste de la función en tiempo en el peor de los casos es O(N*M), donde N son las dimensiones de la ciudad.
+    El coste de la función en espacio en el peor de los casos es O(N*M).
 
  @ </answer> */
 
