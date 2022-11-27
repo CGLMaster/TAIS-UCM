@@ -10,6 +10,17 @@ using namespace std;
 // El coste de la función en tiempo en el peor de los casos es O(N^3), siendo N el número de cortes posibles.
 // El coste de la función en espacio es O(N^2)
 
+/*
+    Recurrencia:
+
+    carpintero(i,j): menor coste de cortes desde M[i] a M[j] y los cortes que quedan son M[i+1], M[j-1]
+
+
+    carpintero(i,j) =   { carpintero(i,j) = 0       si j = i+1 || j = i
+                        {  min (carpintero(i,k) + carpintero(k,j)) + 2 * (M[j] - M[i])
+                          i<k<j
+*/
+
 
 // Resuelve un caso de prueba, leyendo de la entrada la
 // configuración, y escribiendo la respuesta
