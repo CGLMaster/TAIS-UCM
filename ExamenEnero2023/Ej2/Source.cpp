@@ -1,12 +1,12 @@
 /*
- * MUY IMPORTANTE: Solo se corregirán los comentarios y el código
+ * MUY IMPORTANTE: Solo se corregirÃ³n los comentarios y el cÃ³digo
  * contenidos entre las etiquetas <answer> y </answer>.
- * Toda modificación fuera de esas etiquetas no será corregida.
+ * Toda modificaciÃ³n fuera de esas etiquetas no serÃ¡ corregida.
  */
 
  /*@ <answer>
   *
-  * Nombre y Apellidos: Carlos Gómez López
+  * Nombre y Apellidos: Carlos GÃ³mez LÃ³pez
   *
   *@ </answer> */
 
@@ -15,7 +15,7 @@
 #include <algorithm>
 #include <vector>
 #include <limits>
-/*INCLUDES QUE HE AÑADIDO*/
+/*INCLUDES QUE HE AÃ‘ADIDO*/
 #include "Matriz.h"
 #include "EnterosInf.h"
 using namespace std;
@@ -23,12 +23,12 @@ using namespace std;
 
 /*@ <answer>
 
- El coste de la función en el peor de los casos es O(k*s), siendo k el numero de caras del dado, y s la suma a la que llegar.
+ El coste de la funciÃ³n en el peor de los casos es O(k*s), siendo k el numero de caras del dado, y s la suma a la que llegar.
  El coste en espacio adicional es O(s), ya que uso un vector en vez de una matriz
 
  Recursion del ejercicio:
 
- formas(i,j) : número máximo de formas para conseguir el número j considenrando los tipos de caras de 1 a i
+ formas(i,j) : nÃºmero mÃ¡ximo de formas para conseguir el nÃºmero j considenrando los tipos de caras de 1 a i
                 
              { dados(i,0) = 0
  formas(i,j) { dados(0,j) = 0
@@ -36,20 +36,20 @@ using namespace std;
              { dados(i-1,j) + dados(i, j-Ci) si Ci <= j
 
  Casos Base:
-  dados(i,0) = 0
-     En el caso de que haya caras pero no haya un número al que querer alcanzar, se realizaran 0 formas
-  dados(0,j) = 0
-     En el caso de que se tenga un número al que querer alcanzar pero no caras, se realizaran 0 formas
+  formas(i,0) = 0
+     En el caso de que haya caras pero no haya un nÃºmero al que querer alcanzar, se realizaran 0 formas
+  formas(0,j) = 0
+     En el caso de que se tenga un nÃºmero al que querer alcanzar pero no caras, se realizaran 0 formas
 
  Casos Recursivos:
-  dados(i,j) = dados(i-1,j) si Ci > j
+  formas(i,j) = formas(i-1,j) si Ci > j
     En el caso de que dicha cara ya no pueda restar mas a la cantidad alcanzable j, entonces se cambia de cara
-  dados(i,j) = dados(i-1,j) + dados(i, j-Ci) + 1 si Ci <= j
+  formas(i,j) = formas(i-1,j) + formas(i, j-Ci) si Ci <= j
     En el caso de que se pueda seguir tirando, se suma tanto el si se tira como si se cambia de cara
  @ </answer> */
 
  // ========================================================================
- // Escribe el código completo de tu solución debajo de la etiqueta <answer>
+ // Escribe el cÃ³digo completo de tu soluciÃ³n debajo de la etiqueta <answer>
  // ========================================================================
  //@ <answer>
 
@@ -79,7 +79,7 @@ void resuelveCaso() {
 }
 
 //@ </answer>
-//  Lo que se escriba dejado de esta línea ya no forma parte de la solución.
+//  Lo que se escriba dejado de esta lÃ­nea ya no forma parte de la soluciÃ³n.
 
 int main() {
     // ajustes para que cin extraiga directamente de un fichero
