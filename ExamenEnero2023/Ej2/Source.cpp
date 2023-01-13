@@ -30,10 +30,10 @@ using namespace std;
 
  formas(i,j) : número máximo de formas para conseguir el número j considenrando los tipos de caras de 1 a i
                 
-             { dados(i,0) = 0
- formas(i,j) { dados(0,j) = 0
-             { dados(i-1,j) si Ci > j
-             { dados(i-1,j) + dados(i, j-Ci) si Ci <= j
+             { formas(i,0) = 0
+ formas(i,j) { formas(0,j) = 0
+             { formas(i-1,j) si Ci > j
+             { formas(i-1,j) + formas(i, j-Ci) si Ci <= j
 
  Casos Base:
   formas(i,0) = 0
