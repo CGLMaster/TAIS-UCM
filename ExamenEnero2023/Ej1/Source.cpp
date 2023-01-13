@@ -1,12 +1,12 @@
 /*
- * MUY IMPORTANTE: Solo se corregir·n los comentarios y el cÛdigo
+ * MUY IMPORTANTE: Solo se corregir√≥n los comentarios y el c√≥digo
  * contenidos entre las etiquetas <answer> y </answer>.
- * Toda modificaciÛn fuera de esas etiquetas no ser· corregida.
+ * Toda modificaci√≥n fuera de esas etiquetas no ser√° corregida.
  */
 
  /*@ <answer>
   *
-  * Nombre y Apellidos: Carlos GÛmez LÛpez
+  * Nombre y Apellidos: Carlos G√≥mez L√≥pez
   *
   *@ </answer> */
 
@@ -24,27 +24,21 @@ using namespace std;
 
 /*@ <answer>
 
-    El coste de la funciÛn en el peor de los casos es O(M*log(M)), siendo M el n˙mero de carreteras
+    El coste de la funci√≥n en el peor de los casos es O(M*log(M)), siendo M el n√∫mero de carreteras
     que unen los pueblos N.
 
-    Para llevar a cabo el ejercicio he planteado un arbol de recubrimiento mÌnimo.
+    Para llevar a cabo el ejercicio he planteado un arbol de recubrimiento m√≠nimo.
     Lo primero que he hecho ha sido crear un grafo valorado, introduciendo los datos de la entrada.
     Tras haber creado el grafo he creado la clase limpieza, la cual se va a emplear de hacer
-    el algoritmo de kruskal, en el cual he hecho la modificaciÛn de que coja el camino que m·s cueste en tiempo.
+    el algoritmo de kruskal, en el cual he hecho la modificaci√≥n de que coja el camino que m√°s cueste en tiempo.
     Para determinar si la limpieza es posible, simplemente compruebas la cantidad de conjuntos que tengas,
     si hay mas de 1 significa que ya no es posible limpiar.
 
-    El caso que se que me falla es, uno en el que su recorrido en profundidad es mas grande.
-    5 4
-1 2 20
-1 3 30
-1 4 10
-4 5 30
 
  @ </answer> */
 
  // ========================================================================
- // Escribe el cÛdigo completo de tu soluciÛn debajo de la etiqueta <answer>
+ // Escribe el c√≥digo completo de tu soluci√≥n debajo de la etiqueta <answer>
  // ========================================================================
  //@ <answer>
 
@@ -100,7 +94,7 @@ void resuelveCaso() {
 }
 
 //@ </answer>
-//  Lo que se escriba dejado de esta lÌnea ya no forma parte de la soluciÛn.
+//  Lo que se escriba dejado de esta l√≠nea ya no forma parte de la soluci√≥n.
 
 int main() {
     // ajustes para que cin extraiga directamente de un fichero
